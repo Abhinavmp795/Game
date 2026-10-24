@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://dmwl6fnpi0t4v"]
+
+[ext_resource type="PackedScene" path="res://scenes/player/miner.tscn" id="1_miner"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
+size = Vector2(1680, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
+size = Vector2(40, 980)
+
+[node name="MinerTestScene" type="Node2D" unique_id=1389935508]
+
+[node name="Boundaries" type="Node2D" parent="." unique_id=292784339]
+
+[node name="TopWall" type="StaticBody2D" parent="Boundaries" unique_id=1031844692]
+position = Vector2(800, -20)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/TopWall" unique_id=1526268887]
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="Polygon" type="Polygon2D" parent="Boundaries/TopWall" unique_id=1104215984]
+color = Color(0.35, 0.38, 0.45, 1)
+polygon = PackedVector2Array(-840, -20, 840, -20, 840, 20, -840, 20)
+
+[node name="BottomWall" type="StaticBody2D" parent="Boundaries" unique_id=1695107289]
+position = Vector2(800, 920)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/BottomWall" unique_id=1938658148]
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="Polygon" type="Polygon2D" parent="Boundaries/BottomWall" unique_id=1299521264]
+color = Color(0.35, 0.38, 0.45, 1)
+polygon = PackedVector2Array(-840, -20, 840, -20, 840, 20, -840, 20)
+
+[node name="LeftWall" type="StaticBody2D" parent="Boundaries" unique_id=1612491422]
+position = Vector2(-20, 450)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/LeftWall" unique_id=1471313493]
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="Polygon" type="Polygon2D" parent="Boundaries/LeftWall" unique_id=1523818001]
+color = Color(0.35, 0.38, 0.45, 1)
+polygon = PackedVector2Array(-20, -490, 20, -490, 20, 490, -20, 490)
+
+[node name="RightWall" type="StaticBody2D" parent="Boundaries" unique_id=140249075]
+position = Vector2(1620, 450)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/RightWall" unique_id=307761198]
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="Polygon" type="Polygon2D" parent="Boundaries/RightWall" unique_id=2068351631]
+color = Color(0.35, 0.38, 0.45, 1)
+polygon = PackedVector2Array(-20, -490, 20, -490, 20, 490, -20, 490)
+
+[node name="Miner" parent="." unique_id=781292707 instance=ExtResource("1_miner")]
+position = Vector2(800, 450)

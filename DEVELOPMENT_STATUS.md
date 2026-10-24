@@ -8,7 +8,7 @@
 ## 1. Current Project State
 
 **Overall Status:** NOT YET VERIFIED\
-**Current Phase:** Foundation / Bootstrap & Scene Management\
+**Current Phase:** Player Prototype / Miner Movement\
 **Release:** Pre-Alpha\
 **Target:** Android + Desktop\
 **Engine:** Godot 4.x\
@@ -47,8 +47,8 @@ Do not interpret planned features as implemented features.
 
 ## 5. Player
 
--   [ ] Movement
--   [ ] Camera
+-   [x] Movement (Miner prototype: CharacterBody2D physics, InputMap-driven, normalized diagonals; validated)
+-   [x] Camera (Camera2D child of the player scene, follows the player; validated)
 -   [ ] Attack
 -   [ ] Health
 -   [ ] Damage
@@ -158,8 +158,8 @@ Do not interpret planned features as implemented features.
 
 ## 14. Heroes
 
--   [ ] Hero framework
--   [ ] Hero 1: Miner
+-   [~] Hero framework (HeroStats Resource baseline + HeroController; validated for movement only)
+-   [~] Hero 1: Miner (movement prototype verified; no final art, kit, or full hero system yet)
 -   [ ] Hero 2: Shadow
 -   [ ] Hero 3: Ember
 -   [ ] Hero 4: Ranger
@@ -274,7 +274,7 @@ Do not interpret planned features as implemented features.
 
 ## 24. Testing
 
--   [x] Unit tests (tests/test_bootstrap.gd: 53 checks all passing; bootstrap + scene management only)
+-   [x] Unit tests (addon-free SceneTree runners: tests/test_bootstrap.gd 53/53; tests/test_miner_player.gd 49/49)
 -   [ ] Combat tests
 -   [ ] Auto Skill tests
 -   [ ] Dungeon tests
@@ -332,6 +332,29 @@ inventory, loot, dungeon generation, or assets. Automated suite
 tests/test_bootstrap.gd: 53 checks, all passing (unit + live autoload
 integration).
 
+### Milestone 3 --- Miner Player Prototype
+
+**Status:** COMPLETE (2026-10-24)
+
+Implemented (movement only): reusable player scene
+scenes/player/miner.tscn (CharacterBody2D root, floating motion mode,
+CollisionShape2D 24x32, dev-only placeholder polygon visual with a
+facing marker, Camera2D child); scripts/heroes/hero_stats.gd
+(HeroStats Resource, data-driven baseline per BALANCE.md: HP 100,
+attack 10, defense 5, attack speed 1.0, base_move_speed 220 px/s,
+move speed multiplier 100 percent) instanced as
+data/heroes/miner_stats.tres and bound to the scene;
+scripts/heroes/hero_controller.gd movement + facing (Input.get_vector
+over the move_* actions, normalized diagonals, single
+source-of-truth speed from the bound resource, fail-loud when
+unbound, facing_changed signal, last_move_direction reserved for
+future aim); dev arena scenes/dev/miner_test_scene.tscn (bounded
+walls in a 1600x900 region). No attack, dash, skills, health, status
+effects, equipment, progression, enemies, combat, damage, XP,
+inventory, loot, or final art. Automated suite
+tests/test_miner_player.gd: 49 checks, all passing, plus full
+regression of the bootstrap suite (53/53).
+
 ## 26. Active Issues
 
 -   A1 | Priority: P2 | Affected system: Version control | Status:
@@ -352,12 +375,15 @@ No verified blockers recorded yet.
 **Date:** 2026-10-24
 
 **Validation:** Godot 4.7.2 stable headless (2026-10-24): `--import`
-(exit 0), `--editor --quit` (exit 0), automated suite
-`tests/test_bootstrap.gd` (53/53 PASS, exit 0), and a real headless
-game run through `run/main_scene` with `--quit-after 120` (exit 0, no
-errors; verbose log confirms main.tscn plus main_menu.tscn loading
-through the boot chain). Scope: bootstrap and scene management only.
-No gameplay session verified yet; no Android device test yet.
+(exit 0), `--editor --quit` (exit 0), suite `tests/test_bootstrap.gd`
+(53/53 PASS), suite `tests/test_miner_player.gd` (49/49 PASS), game
+run through `run/main_scene` with `--quit-after 90` (exit 0, no
+errors), and a direct headless launch of
+`res://scenes/dev/miner_test_scene.tscn` (exit 0; verbose log
+confirms test scene, miner.tscn and hero_controller.gd loading).
+Movement/collision coverage uses simulated input and physics steps;
+no human playtest yet, no rendered visual inspection, no Android
+device test yet.
 
 ## 29. Last Updated By
 

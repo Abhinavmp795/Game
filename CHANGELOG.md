@@ -57,6 +57,28 @@ The format follows a practical Keep-a-Changelog style.
 -   [Bootstrap] Verification: Godot 4.7.2 headless import, editor
     load, test run, and game run via run/main_scene all exit 0 with no
     errors.
+-   [Player] Miner movement prototype: reusable player scene
+    scenes/player/miner.tscn (CharacterBody2D root with floating
+    motion mode, 24x32 collision shape, dev-only placeholder polygon
+    visual with facing marker, Camera2D child) plus dev arena
+    scenes/dev/miner_test_scene.tscn with bounded walls.
+-   [Player] Data-driven hero baseline: scripts/heroes/hero_stats.gd
+    HeroStats Resource and data/heroes/miner_stats.tres (BALANCE.md
+    baseline: HP 100, attack 10, defense 5, attack speed 1.0, base
+    move speed 220 px/s, move speed multiplier 100 percent). Movement
+    speed comes solely from the bound resource instance.
+-   [Player] HeroController (scripts/heroes/hero_controller.gd):
+    InputMap-driven physics movement on move_up/move_down/move_left/
+    move_right, normalized diagonal speed, facing direction with
+    visual flip, facing_changed signal, fail-loud when stats are
+    unbound, and hooks reserved for future attack/dash/skills/health/
+    status/equipment/progression components.
+-   [Player] Automated suite tests/test_miner_player.gd: 49 checks all
+    passing (initialization, data-driven speed verification, cardinal
+    movement, diagonal normalization, facing, boundary collision and
+    containment). Full regression: bootstrap suite still 53/53.
+-   [Player] Verification: headless import, editor load, player suite,
+    bootstrap suite, game run, and direct dev-scene launch all exit 0.
 
 ### Planned
 
@@ -80,10 +102,13 @@ The format follows a practical Keep-a-Changelog style.
 
 ### Known Issues
 
--   Configuration and bootstrap milestones verified on 2026-10-24 (see
-    DEVELOPMENT_STATUS.md, Last Validation). No gameplay systems exist
-    yet. Automated tests cover bootstrap and scene management only.
-    Android export and device testing are not configured yet.
+-   Configuration, bootstrap, and miner movement milestones verified
+    on 2026-10-24 (see DEVELOPMENT_STATUS.md, Last Validation). No
+    combat, enemies, XP, skills, inventory, loot, save, or final art
+    exist yet. The player visual is a temporary development
+    placeholder, not approved pixel art. Mobile touch controls are not
+    implemented (desktop InputMap only so far). Android export and
+    device testing are not configured yet.
 
 ------------------------------------------------------------------------
 
