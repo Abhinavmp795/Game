@@ -18,6 +18,20 @@ The format follows a practical Keep-a-Changelog style.
 -   Test plan.
 -   Development status tracker.
 -   Changelog.
+-   [Foundation] Godot project configuration for Heroes Underground
+    Shift (Godot 4.7.x, verified on 4.7.2 stable): portrait-first
+    mobile display (720x1280 base viewport, canvas_items stretch,
+    keep_width aspect, fractional scaling), desktop test window
+    override (405x720), 2D Mobile renderer, nearest-neighbor texture
+    filtering, 2D transform snapping, and 13 InputMap actions with
+    desktop keyboard bindings (WASD/arrows movement, Space attack,
+    Shift dash, 1/2/3 skills, R ultimate, F interact, Tab inventory,
+    Escape pause).
+-   [Foundation] Repository structure preserved and made git-trackable:
+    assets/ (with art/, audio/, generated/, source/ per asset rules),
+    scenes/, scripts/, data/, tests/, docs/.
+-   [Foundation] Verification: Godot 4.7.2 headless `--import` and
+    `--editor --quit` pass with no project configuration errors.
 
 ### Planned
 
@@ -41,8 +55,11 @@ The format follows a practical Keep-a-Changelog style.
 
 ### Known Issues
 
--   Implementation status must be verified against the actual
-    repository.
+-   Repository inspection completed 2026-10-24; configuration status is
+    verified in `project.godot`. No gameplay systems exist yet. The
+    project-file relocation from `new-game-project/` into the
+    repository root is not yet committed (see DEVELOPMENT_STATUS.md,
+    Active Issues).
 
 ------------------------------------------------------------------------
 

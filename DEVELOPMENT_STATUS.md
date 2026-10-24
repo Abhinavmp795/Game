@@ -8,7 +8,7 @@
 ## 1. Current Project State
 
 **Overall Status:** NOT YET VERIFIED\
-**Current Phase:** Foundation / Repository Inspection\
+**Current Phase:** Foundation / Project Configuration\
 **Release:** Pre-Alpha\
 **Target:** Android + Desktop\
 **Engine:** Godot 4.x\
@@ -26,14 +26,14 @@ Do not interpret planned features as implemented features.
 
 ## 3. Foundation
 
--   [ ] Godot project exists
--   [ ] Project opens without parser errors
+-   [x] Godot project exists (Godot 4.7.2 stable, Mobile renderer; verified 2026-10-24)
+-   [x] Project opens without parser errors (headless `--import` and `--editor --quit`, exit code 0)
 -   [ ] Main scene exists
--   [ ] InputMap configured
--   [ ] Pixel rendering configured
--   [ ] Mobile orientation configured
--   [ ] Git repository initialized
--   [ ] Base documentation created
+-   [x] InputMap configured (13 actions with desktop keyboard bindings)
+-   [x] Pixel rendering configured (nearest-neighbor filtering, 2D transform snap)
+-   [x] Mobile orientation configured (portrait-first)
+-   [x] Git repository initialized (branch main; relocation of project files uncommitted, see Active Issues)
+-   [x] Base documentation created
 
 ## 4. Core Systems
 
@@ -289,15 +289,37 @@ Do not interpret planned features as implemented features.
 
 ### Milestone 0 --- Repository Inspection
 
-**Status:** NOT STARTED
+**Status:** COMPLETE (2026-10-24)
 
-Required: - inspect repository - inspect Godot version - inspect Git -
-inspect existing assets - inspect existing scripts - inspect existing
-scenes - identify reusable work - establish baseline
+Inspected: repository layout, Godot version (4.7.2 stable), Git state,
+existing scenes/scripts/data/tests (none), existing assets (placeholder
+icon only). Baseline: pre-foundation project; documentation set
+present. Project file relocation into the repository root was detected
+during this milestone.
+
+### Milestone 1 --- Foundation Configuration
+
+**Status:** COMPLETE (2026-10-24)
+
+Configured in `project.godot`: project name; portrait-first mobile
+display (720x1280 base viewport, canvas_items stretch, keep_width
+aspect, fractional scaling); desktop test window override 405x720; 2D
+Mobile renderer; nearest-neighbor texture filtering; 2D transform
+snapping; 13 InputMap actions (move_up, move_down, move_left,
+move_right, attack, dash, skill_1, skill_2, skill_3, ultimate,
+interact, inventory, pause) with desktop keyboard bindings. Preserved
+assets/scenes/scripts/data/tests/docs structure; added asset
+subfolders assets/art, assets/audio, assets/generated, assets/source
+per asset rules. No gameplay systems, scenes, or scripts created yet.
+Validation: Godot 4.7.2 headless import + editor load, no errors.
 
 ## 26. Active Issues
 
-No verified issues recorded yet.
+-   A1 | Priority: P2 | Affected system: Version control | Status: OPEN
+    | Reproduction: `git status` shows the project files relocated from
+    `new-game-project/` into the repository root as uncommitted
+    delete/add pairs. Next step: commit the relocation as a Git
+    checkpoint before further content work.
 
 Every issue must include: - priority - reproduction - affected system -
 status
@@ -308,9 +330,14 @@ No verified blockers recorded yet.
 
 ## 28. Last Validation
 
-**Date:** Not yet recorded
+**Date:** 2026-10-24
 
-**Validation:** Not yet run
+**Validation:** Godot 4.7.2 stable headless: `--import` resource scan
+and `--editor --quit` project load both ran without errors (exit code
+0). Settings verified by file read-back: 13 InputMap actions present,
+nearest filtering, 2D transform snap, portrait orientation, Mobile
+renderer. Not yet verified in a running gameplay session or on an
+Android device.
 
 ## 29. Last Updated By
 
