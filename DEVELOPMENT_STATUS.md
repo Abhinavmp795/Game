@@ -8,7 +8,7 @@
 ## 1. Current Project State
 
 **Overall Status:** NOT YET VERIFIED\
-**Current Phase:** Foundation / Project Configuration\
+**Current Phase:** Foundation / Bootstrap & Scene Management\
 **Release:** Pre-Alpha\
 **Target:** Android + Desktop\
 **Engine:** Godot 4.x\
@@ -28,17 +28,17 @@ Do not interpret planned features as implemented features.
 
 -   [x] Godot project exists (Godot 4.7.2 stable, Mobile renderer; verified 2026-10-24)
 -   [x] Project opens without parser errors (headless `--import` and `--editor --quit`, exit code 0)
--   [ ] Main scene exists
+-   [x] Main scene exists (res://scenes/main.tscn set as run/main_scene; launches headless)
 -   [x] InputMap configured (13 actions with desktop keyboard bindings)
 -   [x] Pixel rendering configured (nearest-neighbor filtering, 2D transform snap)
 -   [x] Mobile orientation configured (portrait-first)
--   [x] Git repository initialized (branch main; relocation of project files uncommitted, see Active Issues)
+-   [x] Git repository initialized (branch main; relocation committed as 0b390c6)
 -   [x] Base documentation created
 
 ## 4. Core Systems
 
--   [ ] GameManager
--   [ ] SceneManager
+-   [x] GameManager (flow states MAIN_MENU/HUB/DUNGEON, data-driven SCENE_PATHS registry, flow signals; validated)
+-   [x] SceneManager (validated deferred swaps in the main shell, failure signals, transition overlay; validated)
 -   [ ] SaveManager
 -   [ ] SettingsManager
 -   [ ] AudioManager
@@ -274,7 +274,7 @@ Do not interpret planned features as implemented features.
 
 ## 24. Testing
 
--   [ ] Unit tests
+-   [x] Unit tests (tests/test_bootstrap.gd: 53 checks all passing; bootstrap + scene management only)
 -   [ ] Combat tests
 -   [ ] Auto Skill tests
 -   [ ] Dungeon tests
@@ -313,13 +313,32 @@ subfolders assets/art, assets/audio, assets/generated, assets/source
 per asset rules. No gameplay systems, scenes, or scripts created yet.
 Validation: Godot 4.7.2 headless import + editor load, no errors.
 
+### Milestone 2 --- Bootstrap & Scene Management
+
+**Status:** COMPLETE (2026-10-24)
+
+Implemented (no gameplay content): persistent main shell
+(scenes/main.tscn = run/main_scene with SceneRoot swap container and a
+reserved global UILayer); SceneManager autoload — validated, deferred,
+single-flight scene swaps, scene_change_started/changed/failed
+signals, asset-free black transition overlay; GameManager autoload —
+flow authority with data-driven state->scene registry (UNKNOWN,
+MAIN_MENU, HUB, DUNGEON), flow API (boot, show_main_menu, enter_hub,
+start_dungeon_run, end_current_run), state_changed/run_started/
+run_ended signals, and a test injection seam; bootstrap flow shells
+main_menu/hub/dungeon wiring the menu flow (menu -> hub -> dungeon ->
+run end -> hub). No player, movement, combat, enemies, skills, XP,
+inventory, loot, dungeon generation, or assets. Automated suite
+tests/test_bootstrap.gd: 53 checks, all passing (unit + live autoload
+integration).
+
 ## 26. Active Issues
 
--   A1 | Priority: P2 | Affected system: Version control | Status: OPEN
-    | Reproduction: `git status` shows the project files relocated from
-    `new-game-project/` into the repository root as uncommitted
-    delete/add pairs. Next step: commit the relocation as a Git
-    checkpoint before further content work.
+-   A1 | Priority: P2 | Affected system: Version control | Status:
+    RESOLVED (2026-10-24) | Reproduction: project files had been
+    relocated from `new-game-project/` into the repository root as
+    uncommitted delete/add pairs. Resolution: committed as 0b390c6
+    (foundation checkpoint).
 
 Every issue must include: - priority - reproduction - affected system -
 status
@@ -332,12 +351,13 @@ No verified blockers recorded yet.
 
 **Date:** 2026-10-24
 
-**Validation:** Godot 4.7.2 stable headless: `--import` resource scan
-and `--editor --quit` project load both ran without errors (exit code
-0). Settings verified by file read-back: 13 InputMap actions present,
-nearest filtering, 2D transform snap, portrait orientation, Mobile
-renderer. Not yet verified in a running gameplay session or on an
-Android device.
+**Validation:** Godot 4.7.2 stable headless (2026-10-24): `--import`
+(exit 0), `--editor --quit` (exit 0), automated suite
+`tests/test_bootstrap.gd` (53/53 PASS, exit 0), and a real headless
+game run through `run/main_scene` with `--quit-after 120` (exit 0, no
+errors; verbose log confirms main.tscn plus main_menu.tscn loading
+through the boot chain). Scope: bootstrap and scene management only.
+No gameplay session verified yet; no Android device test yet.
 
 ## 29. Last Updated By
 

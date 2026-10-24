@@ -32,11 +32,36 @@ The format follows a practical Keep-a-Changelog style.
     scenes/, scripts/, data/, tests/, docs/.
 -   [Foundation] Verification: Godot 4.7.2 headless `--import` and
     `--editor --quit` pass with no project configuration errors.
+-   [Bootstrap] Main shell scene (`scenes/main.tscn`, set as
+    `run/main_scene`): persistent SceneRoot swap container plus
+    reserved global UI layer; launches from the engine main-scene path
+    (F5 equivalent verified headless).
+-   [Bootstrap] SceneManager autoload (`scripts/core/scene_manager.gd`):
+    validated, deferred, single-flight scene swaps inside the main
+    shell; scene_change_started/scene_changed/scene_change_failed
+    signals; asset-free black transition overlay.
+-   [Bootstrap] GameManager autoload (`scripts/core/game_manager.gd`):
+    game-flow authority with a data-driven state-to-screen registry
+    (UNKNOWN, MAIN_MENU, HUB, DUNGEON), flow API (boot, show_main_menu,
+    enter_hub, start_dungeon_run, end_current_run),
+    state_changed/run_started/run_ended signals, and a test injection
+    seam.
+-   [Bootstrap] Flow-shell screens (no gameplay content):
+    scenes/main_menu.tscn, scenes/hub.tscn, scenes/dungeon.tscn with
+    minimal screen scripts wiring navigation into GameManager.
+-   [Bootstrap] Addon-free automated test suite
+    (`tests/test_bootstrap.gd`; 53 checks, all passing): flow registry
+    integrity, SceneManager validation/lifecycle/single-flight guard,
+    GameManager flow seams via stubbed scene manager, and live
+    autoload integration.
+-   [Bootstrap] Verification: Godot 4.7.2 headless import, editor
+    load, test run, and game run via run/main_scene all exit 0 with no
+    errors.
 
 ### Planned
 
--   Godot project foundation.
--   Main menu and scene flow.
+-   Player prototype (bootstrap architecture exists; player not started).
+-   Designed main menu and scene flow (bootstrap shells exist only).
 -   Player controller.
 -   Core combat.
 -   Enemy AI.
@@ -55,11 +80,10 @@ The format follows a practical Keep-a-Changelog style.
 
 ### Known Issues
 
--   Repository inspection completed 2026-10-24; configuration status is
-    verified in `project.godot`. No gameplay systems exist yet. The
-    project-file relocation from `new-game-project/` into the
-    repository root is not yet committed (see DEVELOPMENT_STATUS.md,
-    Active Issues).
+-   Configuration and bootstrap milestones verified on 2026-10-24 (see
+    DEVELOPMENT_STATUS.md, Last Validation). No gameplay systems exist
+    yet. Automated tests cover bootstrap and scene management only.
+    Android export and device testing are not configured yet.
 
 ------------------------------------------------------------------------
 

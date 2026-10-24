@@ -13,6 +13,12 @@ config_version=5
 config/name="Heroes Underground Shift"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
+run/main_scene="res://scenes/main.tscn"
+
+[autoload]
+
+SceneManager="*res://scripts/core/scene_manager.gd"
+GameManager="*res://scripts/core/game_manager.gd"
 
 [display]
 
